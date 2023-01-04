@@ -1,22 +1,21 @@
 import matplotlib.pyplot as plt
 
-##Variabeln und Listen
+
 t_log = 0
 c = []
-t = []
-t_numvalue = []
-f = open("OzonDaten.txt", "r")
+time = []
+time_numvalue = []
+Ozon = open("OzonDaten.txt", "r")
 count = True
 counter = 0
 platzhalter_t = 0
 vari = 999
-t_labels = []
-t_labelsnum = []
+time_labels = []
+time_labelsnum = []
 daysit = 0
 dayline = []
 
-
-def integer_to_time_stamp(time_as_integer): #eine Zahl zu Time stamp
+def integer_to_time_stamp(time_as_integer):
     hours = time_as_integer // 3600
     remaining_seconds = time_as_integer % 3600
     minutes = remaining_seconds // 60
@@ -25,7 +24,7 @@ def integer_to_time_stamp(time_as_integer): #eine Zahl zu Time stamp
     return time_stamp
 
 
-def time_as_integer(time_stamp): #time stamp zu einer Zahl
+def time_stamp_to_integer(time_stamp):
     time_stamp_parts = time_stamp.split(":")
     hours = int(time_stamp_parts[0])
     minutes = int(time_stamp_parts[1])
@@ -35,8 +34,8 @@ def time_as_integer(time_stamp): #time stamp zu einer Zahl
     return hours * 3600 + minutes * 60 + seconds
 
 
-while count == True: #Daten aus 'OzonDaten.txt' lesen
-    line = f.readline()
+while count == True: #Ozon Daten lesen
+    line = Ozon.readline()
     if line[0:4] == "Stop":
         count = False
         break
@@ -46,35 +45,38 @@ while count == True: #Daten aus 'OzonDaten.txt' lesen
         t_log += 1
     vari = platzhalter_t
     platzhalter_t += (24 * t_log)
-    t.append(str(platzhalter_t) + platzhalter_tmin)
-    t_numvalue.append(time_as_integer(t[counter]))
+    time.append(str(platzhalter_t) + platzhalter_tmin)
+    time_numvalue.append(time_stamp_to_integer(time[counter]))
     c.append(float(line[35:40]))
     counter += 1
-   
 
-for i in range(20): #Beschriftung der X-Achse (Zeit) verändern
+
+
+for i in range(20):
     if daysit == 1:
-        t_labels.append(integer_to_time_stamp(12 * 60 * 60)[0:5])
+        time_labels.append(integer_to_time_stamp(12 * 60 * 60)[0:5])
         daysit = 0
     else:
-        t_labels.append(integer_to_time_stamp(24 * 60 * 60)[0:5])
+        time_labels.append(integer_to_time_stamp(24 * 60 * 60)[0:5])
         daysit = 1
-    t_labelsnum.append(12 * 60 * 60 * i)
-    
-    
-f.close()
+    time_labelsnum.append(12 * 60 * 60 * i)
+
+Ozon.close()
+
+## Graph Details
+
+
 plt.xlabel('Zeit')
 plt.ylabel('Ozon Konzentration in parts per billion (ppb)')
 plt.title('Ozon Konzentration zwischen 19.11.2022 und 28.11.2022')
-plt.plot(t_numvalue, c, marker=',', color='b')
-plt.xticks(t_labelsnum, t_labels)
-
-for i in range(10): #Vertikale Linien und Datum einfügen
-    plt.text((24 * 60 * 60 * i)+1000, 60, str(19 + i) + ".11.2022")
+plt.plot(time_numvalue, c, marker=',', color='b')
+plt.xticks(time_labelsnum, time_labels)
+for i in range(11):
+    if i != 10:
+        plt.text((24 * 60 * 60 * i)+1000, 60, str(19 + i) + ".11.2022")
     dayline.append(24 * 60 * 60 * i)
-    plt.axvline(x=dayline[i], color='r')
+    plt.axvline(x=dayline[i], color='g')
 plt.xticks(fontsize=14)
 plt.xticks(rotation=90)
-
-#plt.savefig("Ozonplot.png") #Wenn jemand den Graph speichern möchte, bitte das "#" löschen
+plt.savefig("Ozonplot.png")
 plt.show()

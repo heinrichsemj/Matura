@@ -71,5 +71,5 @@ for i in range(10):
     plt.axvline(x=dayline[i], color='r')
 plt.xticks(fontsize=14)
 plt.xticks(rotation=90)
-# plt.savefig("Ozonplot.png")
+#plt.savefig("Ozonplot.png") #Wenn jemand den Graph speichern möchte, bitte das "#" löschen
 plt.show()

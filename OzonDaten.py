@@ -58,18 +58,19 @@ for i in range(20):
         daysit = 1
     t_labelsnum.append(12 * 60 * 60 * i)
 f.close()
-plt.xlabel('Time')
-plt.ylabel('Ozone concentration in ppb')
-plt.title('Ozone concentration over time')
+plt.xlabel('Zeit')
+plt.ylabel('Ozon Konzentration in parts per billion (ppb)')
+plt.title('Ozon Konzentration zwischen 19.11.2022 und 28.11.2022')
 plt.plot(t_numvalue, c, marker=',', color='b')
 
 plt.xticks(t_labelsnum, t_labels)
-# plt.gcf().autofmt_xdate()
 dayline = []
 for i in range(10):
+    plt.text((24 * 60 * 60 * i)+1000, 60, str(19 + i) + ".11.2022")
     dayline.append(24 * 60 * 60 * i)
     plt.axvline(x=dayline[i], color='r')
 plt.xticks(fontsize=14)
 plt.xticks(rotation=90)
+
 #plt.savefig("Ozonplot.png") #Wenn jemand den Graph speichern möchte, bitte das "#" löschen
 plt.show()

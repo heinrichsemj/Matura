@@ -15,9 +15,10 @@ for i in range(11):
         plt.text((24 * 60 * 60 * i)+1000, 5.4, str(19 + i) + ".11.2022")
     temp_time.append((24 * 60 * 60 * i))
     plt.axvline(x=temp_time[i], color='g')
+    print(temp[i])
+    plt.hlines(y=temp[i], xmin=(24 * 60 * 60 * i), xmax=(24 * 60 * 60 * (i+1)), color='r')
 plt.xlabel('Zeit')
 plt.ylabel('Temperatur in °C')
-plt.title('Temperatur zwischen 19.11.2022 und 28.11.2022')
-plt.plot(temp_time, temp, marker=',', color='r')
+plt.title('Durchschnittliche Temperatur zwischen 19.11.2022 und 28.11.2022')
 
 plt.show()

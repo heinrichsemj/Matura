@@ -65,10 +65,9 @@ Ozon.close()
 
 ## Graph Details
 
-
 plt.xlabel('Zeit')
-plt.ylabel('Ozon Konzentration in parts per billion (ppb)')
-plt.title('Ozon Konzentration zwischen 19.11.2022 und 28.11.2022')
+plt.ylabel('Ozonkonzentration in parts per billion (ppb)')
+plt.title('Ozonkonzentration zwischen 19.11.2022 und 28.11.2022')
 plt.plot(time_numvalue, c, marker=',', color='b')
 plt.xticks(time_labelsnum, time_labels)
 for i in range(11):
@@ -78,5 +77,6 @@ for i in range(11):
     plt.axvline(x=dayline[i], color='g')
 plt.xticks(fontsize=14)
 plt.xticks(rotation=90)
+plt.xlim(left=0, right=24 * 60 * 60 * 10)
 plt.savefig("Ozonplot.png")
 plt.show()
